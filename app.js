@@ -1,4 +1,4 @@
-//const {routes} = require('./router.js');
+const {routers} = require('./router.js');
 
 const getApp = () => {
 	const app = require('express')();
@@ -8,6 +8,18 @@ const getApp = () => {
 		//res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 		//res.header("Access-Control-Allow-Methods", "PUT, DELETE")
 		next()
+	});
+
+	app.use('/leaderboard', routers.leaderboard())
+	app.use('/game', routers.game());
+	app.use('/users', routers.users());
+
+	app.get('/', (req, res) => {
+		res.json({"msg": "Welcome to hangman server"})
+	});
+
+	app.get('/ping', (req, res) => {
+		res.json({"msg": "pong"})
 	});
 
 	return app;
