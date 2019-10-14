@@ -2,13 +2,13 @@
 const express = require('express');
 
 // Internal Mdoules
-const {leaderboardRoutes, gameRoutes, usersRoutes} = require('./routes.js');
+const {leaderboardRoutes, gameRoutes, randomWordRoutes, usersRoutes} = require('./routes.js');
 
 const routers = {};
 
 routers.leaderboard = () => {
 	const router = express.Router();
-	router.get('/', leaderboardRoutes.read)
+	router.get('/:column/:results', leaderboardRoutes.read)
 	return router;
 };
 
@@ -18,10 +18,16 @@ routers.game = () => {
 	return router;
 };
 
+routers.randomWord = () => {
+	const router = express.Router();
+	router.get('/', randomWordRoutes.read);
+	return router;
+};
+
 routers.users = () => {
 	const router = express.Router();
 	router.post('/', usersRoutes.create)
-	router.get('/', usersRoutes.read)
+	router.get('/:name', usersRoutes.read)
 	router.put('/', usersRoutes.update)
 	return router;
 };

@@ -12,6 +12,7 @@ const getApp = () => {
 
 	app.use('/leaderboard', routers.leaderboard())
 	app.use('/game', routers.game());
+	app.use('/randomWord', routers.randomWord());
 	app.use('/users', routers.users());
 
 	app.get('/', (req, res) => {
