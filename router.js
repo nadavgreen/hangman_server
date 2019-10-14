@@ -27,7 +27,6 @@ routers.randomWord = () => {
 routers.users = () => {
 	const router = express.Router();
 	router.post('/', usersRoutes.create)
-	router.get('/:name', usersRoutes.read)
 	router.put('/', usersRoutes.update)
 	return router;
 };

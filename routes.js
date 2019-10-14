@@ -86,20 +86,14 @@ randomWordRoutes.read = (req, res) => {
 const usersRoutes = {};
 
 usersRoutes.create = (req, res) => {
-	HangmanDB.create('users', req.body)
+	HangmanDB.read('users', req.body)
 	.then(result => {
-		res.json({"msg": "new user created"})
+		if (!result.length) return HangmanDB.create('users', req.body)
+		else return result
 	})
-	.catch(err => {
-		console.log(err)
-		res.json({"msg": "Please see docs"})
-	})
-};
-
-usersRoutes.read = (req, res) => {
-	HangmanDB.read('users', req.params)
 	.then(result => {
-		res.json(result)
+		if (!result) res.json({"msg": "new user created"})
+		else res.json(result)
 	})
 	.catch(err => {
 		console.log(err)
