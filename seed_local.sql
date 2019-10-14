@@ -1,4 +1,7 @@
-DROP TABLE IF EXISTS users;
+DROP DATABASE IF EXISTS hangman;
+CREATE DATABASE hangman;
+
+\c hangman;
 
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
