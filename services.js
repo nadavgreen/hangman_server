@@ -1,8 +1,8 @@
 class HangmanDB {
-	hangmanConnection = require('./db.js');
-	hangmanAddress = require('./config.js')
-
 	static create(table, data) {
+		const hangmanConnection = require('./db.js');
+		const hangmanAddress = require('./config.js')
+
 		const keys = Object.keys(data)
 		const sql = keys.reduce((str, e, i) => {
 			if(i !== keys.length - 1) return str += `${e}, ` 
@@ -16,6 +16,9 @@ class HangmanDB {
 	}
 
 	static read(table, data) {
+		const hangmanConnection = require('./db.js');
+		const hangmanAddress = require('./config.js')
+
 		const keys = Object.keys(data)
 		const sql = keys.reduce((str, e, i) => {
 			return str += `${e} = $[${e}];`
@@ -24,11 +27,17 @@ class HangmanDB {
 	}
 
 	static readAll(table, column, results) {
+		const hangmanConnection = require('./db.js');
+		const hangmanAddress = require('./config.js')
+
 		const sql = `SELECT * FROM ${table} ORDER BY ${column} DESC NULLS LAST LIMIT ${results}`
 		return hangmanConnection(hangmanAddress).any(sql)
 	}
 
 	static update(table, data, term) {
+		const hangmanConnection = require('./db.js');
+		const hangmanAddress = require('./config.js')
+
 		const keys = Object.keys(data)
 		let sql = keys.reduce((str, e, i) => {
 			if(i !== keys.length - 1) return str += `${e} = $[${e}], `
