@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "save": "git push heroku master && git push origin master",
+    "save": "rm -rf node_modules && git push heroku master && git push origin master",
     "start": "node index.js",
     "nodemon": "node_modules/.bin/nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
