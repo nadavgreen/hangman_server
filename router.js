@@ -20,7 +20,7 @@ routers.game = () => {
 
 routers.randomWord = () => {
 	const router = express.Router();
-	router.get('/', randomWordRoutes.read);
+	router.get('/:name', randomWordRoutes.read);
 	return router;
 };
 

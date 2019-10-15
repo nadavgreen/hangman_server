@@ -7,5 +7,6 @@ CREATE TABLE users (
     games_played INT,
     guesses_needed INT,
     level_won_games INT,
-    level_played_games INT
+    level_played_games INT,
+    current_word VARCHAR
 );

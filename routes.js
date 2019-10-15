@@ -23,18 +23,30 @@ leaderboardRoutes.read = (req, res) => {
 const gameRoutes = {};
 
 gameRoutes.post = (req, res) => {
+	const {name, guess, guesses} = req.body;
 	const data  = {
-		'guess': 'aple',
-		'guesses': [],
-		'random_word': 'apple'
+		'guess': guess,
+		'guesses': guesses,
 	}
-	axios({
-		'method': 'post',
-		'url': 'https://hangman-microservice.herokuapp.com//',
-		'data': data
+
+	HangmanDB.read('users', {"name": name})
+	.then(result => {
+		return result[0].current_word;
+	})
+	.then(word => {
+		data['random_word'] = word;
+		console.log(data)
+
+		return axios({
+			'method': 'post',
+			'url': 'https://hangman-microservice.herokuapp.com//',
+			'data': data
+		})
 	})
 	.then(result => {
 		const {msg} = result.data;
+		msg.random_word = msg.random_word.length;
+
 		res.json(msg);	
 	})
 	.catch(err => {
@@ -48,6 +60,7 @@ const randomWordRoutes = {};
 randomWordRoutes.read = (req, res) => {
 	const {randomInt} = require('./utils.js')
 	const args = req.query;
+	const name = req.params;
 
 	if (args.difficulty) args.difficulty = parseInt(args.difficulty)
 	else args.difficulty = randomInt(1,10);
@@ -74,8 +87,14 @@ randomWordRoutes.read = (req, res) => {
 		'params': args
 	})
 	.then(result => {
-		const {data} = result
-		res.json({data});
+		const wordObj = {
+			'current_word': result.data,
+		}
+		
+		return HangmanDB.update('users', wordObj, name)
+	})
+	.then(result => {
+		res.json({"msg":"user word updated"});
 	})
 	.catch(err => {
 		cosnole.log(err)
