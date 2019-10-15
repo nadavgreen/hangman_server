@@ -45,8 +45,6 @@ gameRoutes.post = (req, res) => {
 	})
 	.then(result => {
 		const {msg} = result.data;
-		msg.random_word = msg.random_word.length;
-
 		res.json(msg);	
 	})
 	.catch(err => {
