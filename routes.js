@@ -94,7 +94,8 @@ randomWordRoutes.read = (req, res) => {
 		return HangmanDB.update('users', wordObj, name)
 	})
 	.then(result => {
-		res.json(result);
+		const {current_word} = result[0];
+		res.json({'random_word': current_word});
 	})
 	.catch(err => {
 		cosnole.log(err)
