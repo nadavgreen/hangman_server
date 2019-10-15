@@ -95,7 +95,7 @@ randomWordRoutes.read = (req, res) => {
 	})
 	.then(result => {
 		const {current_word} = result[0];
-		res.json({'random_word': current_word});
+		res.json({'random_word': current_word.length});
 	})
 	.catch(err => {
 		cosnole.log(err)
