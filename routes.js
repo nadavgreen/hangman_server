@@ -92,8 +92,7 @@ usersRoutes.create = (req, res) => {
 		else return result
 	})
 	.then(result => {
-		if (!result) res.json({"msg": "new user created"})
-		else res.json(result)
+		res.json(result)
 	})
 	.catch(err => {
 		console.log(err)
@@ -106,7 +105,7 @@ usersRoutes.update = (req, res) => {
 
 	HangmanDB.update('users', data, term)
 	.then(result => {
-		res.json({"msg":"user updated"})
+		res.json(result)
 	})
 	.catch(err => {
 		console.log(err)

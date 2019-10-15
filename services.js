@@ -10,9 +10,9 @@ class HangmanDB {
 		}, `INSERT INTO ${table} (`)
 		const sql2 = keys.reduce((str, e, i) => {
 			if(i !== keys.length - 1) return str += `$[${e}], `
-			return str += `$[${e}])`
+			return str += `$[${e}]) RETURNING *;`
 		}, ' VALUES (')
-		return hangmanConnection(hangmanAddress).none(sql+sql2, data)
+		return hangmanConnection(hangmanAddress).any(sql+sql2, data)
 	}
 
 	static read(table, data) {
@@ -44,9 +44,9 @@ class HangmanDB {
 			return str += `${e} = $[${e}] `
 		}, `UPDATE ${table} SET `)
 		const termKey = Object.keys(term)
-		sql += `WHERE ${termKey[0]} = $[${termKey[0]}]`
+		sql += `WHERE ${termKey[0]} = $[${termKey[0]}] RETURNING *;`
 		data = {...data, ...term}
-		return hangmanConnection(hangmanAddress).none(sql, data)
+		return hangmanConnection(hangmanAddress).any(sql, data)
 	}
 }
 
